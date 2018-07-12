@@ -4,15 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/black"
     tools:context="com.github.airsaid.chordview.MainActivity">
 
     <com.github.airsaid.chordview.widget.ChordView
         android:id="@+id/chordView"
-        android:layout_width="200dp"
+        android:layout_width="240dp"
         android:layout_height="300dp"
+        app:cv_barreAlpha="200"
+        app:cv_barreColor="@android:color/white"
+        app:cv_barreStrokeColor="@android:color/white"
+        app:cv_barreStrokeWidth="2dp"
+        app:cv_closedStringImage="@mipmap/ic_closed_string"
+        app:cv_emptyStringImage="@mipmap/ic_empty_string"
+        app:cv_fretTextColor="@android:color/darker_gray"
+        app:cv_fretTextOffsetX="10dp"
+        app:cv_fretTextSize="12sp"
+        app:cv_gridLineColor="@android:color/white"
+        app:cv_gridLineWidth="3dp"
+        app:cv_headColor="@android:color/white"
+        app:cv_headRadius="20dp"
+        app:cv_noteAlpha="200"
+        app:cv_noteColor="@android:color/white"
+        app:cv_noteRadius="16dp"
+        app:cv_noteStrokeColor="@android:color/white"
+        app:cv_noteStrokeWidth="2dp"
+        app:cv_noteTextColor="@android:color/black"
+        app:cv_noteTextSize="16sp"
+        app:cv_stringOffsetY="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onPrev"
+        android:text="Prev Chord"
+        app:layout_constraintBottom_toTopOf="@id/next" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onNext"
+        android:text="Next Chord"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

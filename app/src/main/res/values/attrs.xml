@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ChordView">
+        <attr name="cv_closedStringImage" format="reference" />
+        <attr name="cv_emptyStringImage" format="reference" />
+        <attr name="cv_stringOffsetY" format="dimension|reference" />
+
+        <attr name="cv_headRadius" format="dimension|reference" />
+        <attr name="cv_headColor" format="color|reference" />
+
+        <attr name="cv_fretTextSize" format="dimension|reference" />
+        <attr name="cv_fretTextColor" format="color|reference" />
+        <attr name="cv_fretTextOffsetX" format="dimension|reference" />
+
+        <attr name="cv_gridLineWidth" format="dimension|reference" />
+        <attr name="cv_gridLineColor" format="color|reference" />
+
+        <attr name="cv_noteColor" format="color|reference" />
+        <attr name="cv_noteRadius" format="dimension|reference" />
+        <attr name="cv_noteTextSize" format="dimension|reference" />
+        <attr name="cv_noteTextColor" format="color|reference" />
+        <attr name="cv_noteStrokeWidth" format="dimension|reference" />
+        <attr name="cv_noteStrokeColor" format="color|reference" />
+        <attr name="cv_noteAlpha" format="integer|reference" />
+
+        <attr name="cv_barreColor" format="color|reference" />
+        <attr name="cv_barreAlpha" format="integer|reference" />
+        <attr name="cv_barreStrokeWidth" format="dimension|reference" />
+        <attr name="cv_barreStrokeColor" format="color|reference" />
+    </declare-styleable>
+</resources>

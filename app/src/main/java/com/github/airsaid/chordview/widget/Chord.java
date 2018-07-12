@@ -89,6 +89,32 @@ public class Chord {
     }
 
     /**
+     * 获取和弦中最大的品。
+     *
+     * @return 最大品，当没有找到时会返回 -1。（这种情况一般不会出现，除非 frets 数据有问题）
+     */
+    public int getLargestFret() {
+        int largest = -1;
+        for (int i = 0; i < frets.length; i++) {
+            int fret = frets[i];
+            // 不处理小于 1 品的情况
+            if (fret < 1) {
+                continue;
+            }
+            // 第一次为 largest 赋值
+            if (largest == -1) {
+                largest = fret;
+                continue;
+            }
+            // 对后面的数依次进行比较，得到最大的品
+            if (fret > largest) {
+                largest = fret;
+            }
+        }
+        return largest;
+    }
+
+    /**
      * 获取最大的弦数。
      *
      * @return 最大弦数。

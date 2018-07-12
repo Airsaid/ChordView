@@ -50,4 +50,13 @@ public class ChordTest {
         assertThat(mChords.get(3).getLeastFret(), is(8));
     }
 
+    @Test
+    public void getLargestFret() throws Exception {
+        // 测试和弦中的最大品
+        assertThat(mChords.get(0).getLargestFret(), is(3));
+        assertThat(mChords.get(1).getLargestFret(), is(5));
+        assertThat(mChords.get(2).getLargestFret(), is(8));
+        assertThat(mChords.get(3).getLargestFret(), is(10));
+    }
+
 }
