@@ -1,4 +1,4 @@
-package com.github.airsaid.chordview.widget;
+package com.github.airsaid.library.widget;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -58,5 +58,4 @@ public class ChordTest {
         assertThat(mChords.get(2).getLargestFret(), is(8));
         assertThat(mChords.get(3).getLargestFret(), is(10));
     }
-
 }

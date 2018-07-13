@@ -27,4 +27,6 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.android.support.constraint:constraint-layout:${rootProject.ext.constraintLayoutVersion}"
+
+    compile project(path: ':library')
 }

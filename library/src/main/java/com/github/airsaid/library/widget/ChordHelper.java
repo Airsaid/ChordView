@@ -1,4 +1,4 @@
-package com.github.airsaid.chordview.widget;
+package com.github.airsaid.library.widget;
 
 /**
  * @author airsaid
@@ -9,7 +9,7 @@ public class ChordHelper {
      * 获取横按和弦所需要的信息。分别是品、和截止弦。
      *
      * @param chord 和弦对象
-     * @return 信息数组，当是横按情况时，角标 0 处存储的是品，角标 1 处存储的是截止弦。当非横按时返回 NUL。
+     * @return 信息数组，当是横按情况时，角标 0 处存储的是品，角标 1 处存储的是截止弦。当非横按时返回 NULL。
      */
     public int[] getBarreChordData(Chord chord) {
         int[] data = new int[2];

@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.github.airsaid.chordview.widget.Chord;
-import com.github.airsaid.chordview.widget.ChordView;
+import com.github.airsaid.library.widget.Chord;
+import com.github.airsaid.library.widget.ChordView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         Chord chord = new Chord(new int[]{-1, 3, 2, 0, 1, 0}, new int[]{0, 3, 2, 0, 1, 0});
         mChordView.setChord(chord);
-
-
     }
 
     public void onPrev(View v) {

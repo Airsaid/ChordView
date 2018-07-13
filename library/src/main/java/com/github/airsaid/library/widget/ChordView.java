@@ -1,4 +1,6 @@
-package com.github.airsaid.chordview.widget;
+package com.github.airsaid.library.widget;
+
+import android.view.View;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -14,9 +16,9 @@ import android.support.annotation.IdRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.View;
 
-import com.github.airsaid.chordview.R;
+import com.github.airsaid.library.R;
+
 
 /**
  * 用于渲染吉他和铉的 Android 自定义 View。
@@ -30,7 +32,7 @@ public class ChordView extends View {
 
     /** 表示闭弦符号的图片，如果为 NULL，则不会绘制闭弦提示符号 */
     private Bitmap mClosedStringBitmap;
-    /** 表示空弦符号的图片，如果为 NULL，这不会绘制空闲提示符号 */
+    /** 表示空弦符号的图片，如果为 NULL，则不会绘制空闲提示符号 */
     private Bitmap mEmptyStringBitmap;
     /** 空弦、闭弦提示符号的 y 轴偏移量 */
     private float mStringOffsetY;
@@ -149,7 +151,7 @@ public class ChordView extends View {
      * @param resId 闭弦符号图片资源 id
      */
     public void setClosedStringImage(@IdRes int resId) {
-        if (resId <= 0) return;
+        if (resId == 0) return;
         setClosedStringBitmap(BitmapFactory.decodeResource(getResources(), resId));
     }
 
@@ -177,7 +179,7 @@ public class ChordView extends View {
      * @param resId 空弦符号图片资源 id
      */
     public void setEmptyStringImage(@IdRes int resId) {
-        if (resId <= 0) return;
+        if (resId == 0) return;
         setEmptyStringBitmap(BitmapFactory.decodeResource(getResources(), resId));
     }
 

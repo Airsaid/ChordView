@@ -1,0 +1,34 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        minSdkVersion 14
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:support-annotations:27.1.1'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.8.1'
+    }
+}
+
+publish {
+    userOrg = 'airsaid'
+    groupId = 'com.github.airsaid'
+    artifactId = 'chordview'
+    publishVersion = '0.0.1'
+    desc = 'Android custom View for rendering guitar chord.'
+    website = 'https://github.com/Airsaid/ChordView'
+}
+

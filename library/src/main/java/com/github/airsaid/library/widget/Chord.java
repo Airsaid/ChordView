@@ -1,4 +1,4 @@
-package com.github.airsaid.chordview.widget;
+package com.github.airsaid.library.widget;
 
 import java.util.Arrays;
 
@@ -9,8 +9,8 @@ import java.util.Arrays;
  */
 public class Chord {
 
-    /** 最大有 6 根弦（这个常量的定义是避免后续其他吉他弦数不同问题，不过按照面向对象思想该常量应该放到吉他对象中） */
-    private static final int MAX_STRING = 6;
+    /** 弦数 */
+    private static final int STRING = 6;
 
     /** 品 */
     private int[] frets;
@@ -120,7 +120,7 @@ public class Chord {
      * @return 最大弦数。
      */
     public int getMaxString() {
-        return MAX_STRING;
+        return STRING;
     }
 
     @Override

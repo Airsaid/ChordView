@@ -7,7 +7,7 @@
     android:background="@android:color/black"
     tools:context="com.github.airsaid.chordview.MainActivity">
 
-    <com.github.airsaid.chordview.widget.ChordView
+    <com.github.airsaid.library.widget.ChordView
         android:id="@+id/chordView"
         android:layout_width="240dp"
         android:layout_height="300dp"
