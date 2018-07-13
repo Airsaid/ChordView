@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
         mChords.add(new Chord(new int[]{-1, -1, 1, 2, 1, 2}, new int[]{0, 0, 1, 3, 2, 4})); // Cdim
         mChords.add(new Chord(new int[]{-1, 3, 3, 0, 1, 1}, new int[]{0, 2, 3, 0, 1, 1}));  // Csus4
         mChordView.setChord(mChords.get(mIndex));
+
+        Chord chord = new Chord(new int[]{-1, 3, 2, 0, 1, 0}, new int[]{0, 3, 2, 0, 1, 0});
+        mChordView.setChord(chord);
+
+
     }
 
     public void onPrev(View v) {
