@@ -2,7 +2,7 @@
 Android custom View for rendering guitar chord.
 
 # Preview
-![image](https://github.com/Airsaid/Chord/blob/master/preview.gif)
+![image](https://github.com/Airsaid/ChordView/blob/master/preview.gif)
 
 # Use
 Layout:
