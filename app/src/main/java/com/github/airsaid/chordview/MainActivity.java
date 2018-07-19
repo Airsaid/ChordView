@@ -24,13 +24,13 @@ public class MainActivity extends AppCompatActivity {
         mChordView = findViewById(R.id.chordView);
 
         mChords = new ArrayList<>();
-        mChords.add(new Chord(new int[]{-1, 3, 2, 0, 1, 0}, new int[]{0, 3, 2, 0, 1, 0}));  // C1
-        mChords.add(new Chord(new int[]{3, 3, 5, 5, 5, 3}, new int[]{1, 1, 2, 3, 4, 1}));   // C2
-        mChords.add(new Chord(new int[]{-1, 7, 5, 5, 5, 8}, new int[]{0, 3, 1, 1, 1, 4}));  // C3
-        mChords.add(new Chord(new int[]{8, 10, 10, 9, 8, 8}, new int[]{1, 3, 4, 2, 1, 1})); // C4
-        mChords.add(new Chord(new int[]{-1, -1, 1, 0, 1, 3}, new int[]{0, 0, 1, 0, 2, 4})); // Cm
-        mChords.add(new Chord(new int[]{-1, -1, 1, 2, 1, 2}, new int[]{0, 0, 1, 3, 2, 4})); // Cdim
-        mChords.add(new Chord(new int[]{-1, 3, 3, 0, 1, 1}, new int[]{0, 2, 3, 0, 1, 1}));  // Csus4
+        mChords.add(new Chord(new int[]{-1, 3, 2, 0, 1, 0}, new int[]{0, 3, 2, 0, 1, 0}));
+        mChords.add(new Chord(new int[]{3, 3, 5, 5, 5, 3}, new int[]{1, 1, 2, 3, 4, 1}));
+        mChords.add(new Chord(new int[]{-1, 7, 5, 5, 5, 8}, new int[]{0, 3, 1, 1, 1, 4}));
+        mChords.add(new Chord(new int[]{8, 10, 10, 9, 8, 8}, new int[]{1, 3, 4, 2, 1, 1}));
+        mChords.add(new Chord(new int[]{-1, -1, 1, 0, 1, 3}, new int[]{0, 0, 1, 0, 2, 4}));
+        mChords.add(new Chord(new int[]{-1, -1, 1, 2, 1, 2}, new int[]{0, 0, 1, 3, 2, 4}));
+        mChords.add(new Chord(new int[]{-1, 3, 3, 0, 1, 1}, new int[]{0, 2, 3, 0, 1, 1}));
         mChordView.setChord(mChords.get(mIndex));
 
         Chord chord = new Chord(new int[]{-1, 3, 2, 0, 1, 0}, new int[]{0, 3, 2, 0, 1, 0});

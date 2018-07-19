@@ -26,12 +26,14 @@ import java.util.Arrays;
 public class Chord {
 
     /** 弦数 */
-    private static final int STRING = 6;
+    public static final int STRING = 6;
 
     /** 品 */
     private int[] frets;
     /** 指法 */
     private int[] fingers;
+
+    public Chord() {}
 
     public Chord(int[] frets, int[] fingers) {
         this.frets = frets;
@@ -131,12 +133,13 @@ public class Chord {
     }
 
     /**
-     * 获取最大的弦数。
+     * 通过指定的弦获取对应位置的品。
      *
-     * @return 最大弦数。
+     * @param string 弦
+     * @return 品。
      */
-    public int getMaxString() {
-        return STRING;
+    public int getFret(int string) {
+        return frets[string - STRING];
     }
 
     @Override

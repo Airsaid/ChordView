@@ -52,7 +52,7 @@ public class ChordHelper {
             } else {
                 // 横按：1 弦 -> 吉他的最高弦
                 data[0] = chord.getLeastFret();
-                data[1] = chord.getMaxString();
+                data[1] = Chord.STRING;
             }
         }
 
