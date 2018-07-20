@@ -7,14 +7,14 @@ Android custom View for rendering guitar chord.
 # Usage
 1. Added to app/build.gradle:
 ```
-implementation 'com.github.airsaid:chordview:0.0.1'
+implementation 'com.github.airsaid:chordview:0.0.2'
 ```
 
 
 2. Layout:
 
 ``` xml
- <com.github.airsaid.chordview.widget.ChordView
+ <com.github.airsaid.library.widget.ChordView
         android:id="@+id/chordView"
         android:layout_width="240dp"
         android:layout_height="300dp"
