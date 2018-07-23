@@ -1,3 +1,5 @@
+<p align="center"><img src="app/src/main/res/drawable/Logotype.png" alt="Proje ismi" height="50px"></p>
+
 # ChordView
 Android custom View for rendering guitar chord.
 
