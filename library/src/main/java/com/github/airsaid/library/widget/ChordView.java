@@ -48,7 +48,7 @@ public class ChordView extends View {
 
     /** 表示闭弦符号的图片，如果为 NULL，则不会绘制闭弦提示符号 */
     private Bitmap mClosedStringBitmap;
-    /** 表示空弦符号的图片，如果为 NULL，则不会绘制空闲提示符号 */
+    /** 表示空弦符号的图片，如果为 NULL，则不会绘制空弦提示符号 */
     private Bitmap mEmptyStringBitmap;
     /** 空弦、闭弦提示符号的 y 轴偏移量 */
     private float mStringOffsetY;

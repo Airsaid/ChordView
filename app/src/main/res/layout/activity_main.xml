@@ -40,16 +40,21 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorAccent"
         android:onClick="onPrev"
         android:text="Prev Chord"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@id/next" />
 
     <Button
         android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
         android:onClick="onNext"
         android:text="Next Chord"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
