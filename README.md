@@ -6,14 +6,15 @@ Android custom View for rendering guitar chord.
 # Preview
 ![image](https://github.com/Airsaid/ChordView/blob/master/preview.gif)
 
-# Usage
-1. Added to app/build.gradle:
+# Prepare
+Added to app/build.gradle:
 ```
 implementation 'com.github.airsaid:chordview:0.0.2'
 ```
 
 
-2. Layout:
+# Usage
+## XML
 
 ``` xml
  <com.github.airsaid.library.widget.ChordView
@@ -43,7 +44,7 @@ implementation 'com.github.airsaid:chordview:0.0.2'
         app:cv_stringOffsetY="10dp" />
 ```
 
-3. Code:
+## Java
 
 ``` java
 Chord chord = new Chord(new int[]{-1, 3, 2, 0, 1, 0}, new int[]{0, 3, 2, 0, 1, 0});
