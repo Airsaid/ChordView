@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="#FCA570"
     tools:context="com.github.airsaid.chordview.MainActivity">
 
     <com.github.airsaid.library.widget.ChordView
         android:id="@+id/chordView"
         android:layout_width="240dp"
         android:layout_height="300dp"
+        android:layout_marginTop="20dp"
         app:cv_barreAlpha="200"
         app:cv_barreColor="@android:color/white"
         app:cv_barreStrokeColor="@android:color/white"
@@ -32,10 +33,33 @@
         app:cv_noteTextColor="@android:color/black"
         app:cv_noteTextSize="16sp"
         app:cv_stringOffsetY="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/chordView">
+
+        <RadioButton
+            android:id="@+id/normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="NORMAL"
+            android:textColor="@android:color/white" />
+
+        <RadioButton
+            android:id="@+id/simple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SIMPLE"
+            android:textColor="@android:color/white" />
+    </RadioGroup>
 
     <Button
         android:layout_width="match_parent"

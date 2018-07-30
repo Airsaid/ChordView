@@ -16,8 +16,6 @@
 
 package com.github.airsaid.library.widget;
 
-import android.view.View;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -29,11 +27,16 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
+import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.github.airsaid.library.R;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 
 /**
@@ -43,8 +46,19 @@ import com.github.airsaid.library.R;
  */
 public class ChordView extends View {
 
+    @IntDef({NORMAL_SHOW_MODE, SIMPLE_SHOW_MODE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ShowMode {}
+
     /** 弦数 */
     private static final int STRING = 6;
+    /** 默认显示模式 */
+    public static final int NORMAL_SHOW_MODE = 1;
+    /** 简单显示模式，默认只显示三品 */
+    public static final int SIMPLE_SHOW_MODE = 2;
+
+    /** 显示模式 */
+    private int mShowMode = SIMPLE_SHOW_MODE;
 
     /** 表示闭弦符号的图片，如果为 NULL，则不会绘制闭弦提示符号 */
     private Bitmap mClosedStringBitmap;
@@ -118,6 +132,7 @@ public class ChordView extends View {
 
     private void initAttrs(AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.ChordView);
+        setShowMode(a.getInt(R.styleable.ChordView_cv_showMode, NORMAL_SHOW_MODE));
         setClosedStringImage(a.getResourceId(R.styleable.ChordView_cv_closedStringImage, 0));
         setEmptyStringImage(a.getResourceId(R.styleable.ChordView_cv_emptyStringImage, 0));
         setStringOffsetY(a.getDimension(R.styleable.ChordView_cv_stringOffsetY, 0f));
@@ -159,6 +174,25 @@ public class ChordView extends View {
      */
     public Chord getChord() {
         return mChord;
+    }
+
+    /**
+     * 设置显示模式。可设置的参数有默认的 {@link #NORMAL_SHOW_MODE} 和 {@link #SIMPLE_SHOW_MODE}。
+     *
+     * @param mode 显示模式
+     */
+    public void setShowMode(@ShowMode int mode) {
+        mShowMode = mode;
+        invalidate();
+    }
+
+    /**
+     * 获取显示模式。
+     *
+     * @return 显示模式。
+     */
+    @ShowMode public int getShowMode() {
+        return mShowMode;
     }
 
     /**
@@ -267,7 +301,8 @@ public class ChordView extends View {
      *
      * @return 琴头颜色。
      */
-    @ColorInt public int getHeadColor() {
+    @ColorInt
+    public int getHeadColor() {
         return mHeadColor;
     }
 
@@ -483,7 +518,8 @@ public class ChordView extends View {
      *
      * @return 节点透明度。
      */
-    @IntRange(from = 0, to = 255) public int getNoteAlpha() {
+    @IntRange(from = 0, to = 255)
+    public int getNoteAlpha() {
         return mNoteAlpha;
     }
 
@@ -519,7 +555,8 @@ public class ChordView extends View {
      *
      * @return 横按区域透明度。
      */
-    @IntRange(from = 0, to = 255) public int getBarreAlpha() {
+    @IntRange(from = 0, to = 255)
+    public int getBarreAlpha() {
         return mBarreAlpha;
     }
 
@@ -601,12 +638,24 @@ public class ChordView extends View {
         int index = 1;
         int leastFret = getLeastFret();
         float fretWidth = getFretWidth();
+
+        // 简单模式下，如果和弦在三品内则不展示品数字
+        int largestFret = getLargestFret();
+        if (largestFret <= 3) {
+            return;
+        }
+
         for (int i = leastFret; i < STRING + leastFret; i++) {
             String fret = String.valueOf(i);
             float fretTextWidth = mPaint.measureText(fret);
             float x = fretWidth - fretTextWidth - mFretTextOffsetX;
             float y = getStringHeight() + getHeadHeight() + (getGridRowHeight() * index);
             canvas.drawText(fret, x, y, mPaint);
+            // 简单模式下，如果和弦中的品超过三品，则就只展示第一个品数字
+            if (mShowMode == SIMPLE_SHOW_MODE) {
+                // 不继续绘制
+                break;
+            }
             index++;
         }
     }
@@ -643,24 +692,29 @@ public class ChordView extends View {
         mPaint.setStrokeWidth(mGridLineWidth);
         mPaint.setColor(mGridLineColor);
 
+        int row = getRow();
         float columnWidth = getGridColumnWidth();
         float rowHeight = getGridRowHeight();
         float width = getGridWidth();
         float height = getGridHeight();
         float x = getFretWidth(), y = getStringHeight() + getHeadHeight();
-        for (int i = 0; i < STRING; i++) {
-            if (i != STRING - 1) {
-                // 绘制横线
+        // 绘制横线
+        for (int i = 0; i < row + 1; i++) {
+            if (i != row) {
                 canvas.drawLine(x, y + (rowHeight * i) + (mGridLineWidth / 2)
                         , x + width, y + (rowHeight * i) + (mGridLineWidth / 2), mPaint);
+            } else {
+                canvas.drawLine(x, y + (rowHeight * i) - (mGridLineWidth / 2)
+                        , x + width, y + (rowHeight * i) - (mGridLineWidth / 2), mPaint);
+            }
+        }
+        // 绘制竖线
+        for (int i = 0; i < STRING; i++) {
+            if (i != STRING - 1) {
                 // 绘制竖线
                 canvas.drawLine(x + (columnWidth * i) + (mGridLineWidth / 2), y
                         , x + (columnWidth * i) + (mGridLineWidth / 2), y + height, mPaint);
             } else {
-                // 绘制横线
-                canvas.drawLine(x, y + (rowHeight * i) - (mGridLineWidth / 2)
-                        , x + width, y + (rowHeight * i) - (mGridLineWidth / 2), mPaint);
-                // 绘制竖线
                 canvas.drawLine(x + (columnWidth * i) - (mGridLineWidth / 2), y
                         , x + (columnWidth * i) - (mGridLineWidth / 2), y + height, mPaint);
             }
@@ -745,11 +799,13 @@ public class ChordView extends View {
         float cy = (getStringHeight() + getHeadHeight()) + (rowHeight * f) - (rowHeight / 2);
         canvas.drawCircle(cx, cy, mNoteRadius, mPaint);
         // 绘制节点文字
-        mPaint.setTextSize(mNoteTextSize);
-        mPaint.setColor(mNoteTextColor);
-        String fingerStr = String.valueOf(finger);
-        mPaint.getTextBounds(fingerStr, 0, fingerStr.length(), mTextBound);
-        canvas.drawText(fingerStr, cx - mTextBound.width() / 2, cy + mTextBound.height() / 2, mPaint);
+        if (mShowMode != SIMPLE_SHOW_MODE) {
+            mPaint.setTextSize(mNoteTextSize);
+            mPaint.setColor(mNoteTextColor);
+            String fingerStr = String.valueOf(finger);
+            mPaint.getTextBounds(fingerStr, 0, fingerStr.length(), mTextBound);
+            canvas.drawText(fingerStr, cx - mTextBound.width() / 2, cy + mTextBound.height() / 2, mPaint);
+        }
         // 绘制节点边框
         if (strokeWidth > 0) {
             mPaint.setStrokeWidth(strokeWidth);
@@ -781,6 +837,15 @@ public class ChordView extends View {
      */
     private int getLeastFret() {
         return mChord != null ? mChord.getLeastFret() : 1;
+    }
+
+    /**
+     * 获取最大品。
+     *
+     * @return 最大品，默认为 1。
+     */
+    private int getLargestFret() {
+        return mChord != null ? mChord.getLargestFret() : 1;
     }
 
     /**
@@ -876,8 +941,7 @@ public class ChordView extends View {
      * @return 网格每格的高度。
      */
     private float getGridRowHeight() {
-        int row = STRING - 1;
-        return getGridHeight() / row;
+        return getGridHeight() / getRow();
     }
 
     /**
@@ -898,6 +962,21 @@ public class ChordView extends View {
      */
     private int bitmapHeight(Bitmap bitmap) {
         return bitmap != null ? bitmap.getHeight() : 0;
+    }
+
+    private int getRow() {
+        // 简单模式下，如果和弦中最大品和最小品的跨度超过了三品，则行数按照最大跨度来，如果未超过则为三行
+        if (mShowMode == SIMPLE_SHOW_MODE) {
+            int leastFret = getLeastFret();
+            int largestFret = getLargestFret();
+            int diffFret = largestFret - leastFret;
+            if (diffFret < 3) {
+                return 3;
+            } else if (diffFret == 3) {
+                return 4;
+            }
+        }
+        return 5;
     }
 
 }

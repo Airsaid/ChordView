@@ -3,6 +3,7 @@ package com.github.airsaid.chordview;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.RadioGroup;
 
 import com.github.airsaid.library.widget.Chord;
 import com.github.airsaid.library.widget.ChordView;
@@ -10,7 +11,7 @@ import com.github.airsaid.library.widget.ChordView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     private ChordView mChordView;
     private List<Chord> mChords;
@@ -20,8 +21,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mChordView = findViewById(R.id.chordView);
+        RadioGroup mode = findViewById(R.id.mode);
+        mode.setOnCheckedChangeListener(this);
 
         mChords = new ArrayList<>();
         mChords.add(new Chord(new int[]{-1, 3, 2, 0, 1, 0}, new int[]{0, 3, 2, 0, 1, 0}));
@@ -53,4 +55,12 @@ public class MainActivity extends AppCompatActivity {
         mChordView.setChord(mChords.get(mIndex));
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if (checkedId == R.id.normal) {
+            mChordView.setShowMode(ChordView.NORMAL_SHOW_MODE);
+        } else {
+            mChordView.setShowMode(ChordView.SIMPLE_SHOW_MODE);
+        }
+    }
 }

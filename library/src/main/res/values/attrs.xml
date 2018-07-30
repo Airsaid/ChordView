@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ChordView">
+        <attr name="cv_showMode" format="enum">
+            <enum name="normal" value="1" />
+            <enum name="simple" value="2" />
+        </attr>
+
         <attr name="cv_closedStringImage" format="reference" />
         <attr name="cv_emptyStringImage" format="reference" />
         <attr name="cv_stringOffsetY" format="dimension|reference" />
