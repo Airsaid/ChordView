@@ -58,7 +58,7 @@ public class ChordView extends View {
     public static final int SIMPLE_SHOW_MODE = 2;
 
     /** 显示模式 */
-    private int mShowMode = SIMPLE_SHOW_MODE;
+    @ShowMode private int mShowMode;
 
     /** 表示闭弦符号的图片，如果为 NULL，则不会绘制闭弦提示符号 */
     private Bitmap mClosedStringBitmap;
@@ -964,6 +964,11 @@ public class ChordView extends View {
         return bitmap != null ? bitmap.getHeight() : 0;
     }
 
+    /**
+     * 获取行数。
+     *
+     * @return 行。
+     */
     private int getRow() {
         // 简单模式下，如果和弦中最大品和最小品的跨度超过了三品，则行数按照最大跨度来，如果未超过则为三行
         if (mShowMode == SIMPLE_SHOW_MODE) {

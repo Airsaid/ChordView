@@ -139,7 +139,7 @@ public class Chord {
      * @return 品。
      */
     public int getFret(int string) {
-        return frets[string - STRING];
+        return frets[STRING - string];
     }
 
     @Override
