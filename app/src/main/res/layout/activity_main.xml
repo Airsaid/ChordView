@@ -18,7 +18,7 @@
         app:cv_barreStrokeWidth="2dp"
         app:cv_closedStringImage="@mipmap/ic_closed_string"
         app:cv_emptyStringImage="@mipmap/ic_empty_string"
-        app:cv_fretTextColor="@android:color/darker_gray"
+        app:cv_fretTextColor="@android:color/white"
         app:cv_fretTextOffsetX="10dp"
         app:cv_fretTextSize="12sp"
         app:cv_gridLineColor="@android:color/white"

@@ -35,6 +35,10 @@ public class Chord {
 
     public Chord() {}
 
+    public Chord(int[] frets) {
+        this.frets = frets;
+    }
+
     public Chord(int[] frets, int[] fingers) {
         this.frets = frets;
         this.fingers = fingers;

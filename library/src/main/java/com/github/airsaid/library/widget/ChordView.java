@@ -18,21 +18,10 @@ package com.github.airsaid.library.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Rect;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IdRes;
-import android.support.annotation.IntDef;
-import android.support.annotation.IntRange;
-import android.support.annotation.Nullable;
+import android.graphics.*;
+import android.support.annotation.*;
 import android.util.AttributeSet;
 import android.view.View;
-
 import com.github.airsaid.library.R;
 
 import java.lang.annotation.Retention;
@@ -112,7 +101,6 @@ public class ChordView extends View {
     private Paint mPaint;
     private ChordHelper mChordHelper;
     private Path mHeadPath = new Path();
-    private Rect mTextBound = new Rect();
 
     public ChordView(Context context) {
         this(context, null);
@@ -762,8 +750,8 @@ public class ChordView extends View {
             }
 
             // 绘制横按两端节点
-            drawNote(canvas, barreFret, STRING, 1, 255, 0, 0);
-            drawNote(canvas, barreFret, STRING - (barreString - 1), 1, 255, 0, 0);
+            drawNote(canvas, barreFret, STRING, fingers != null ? 1 : 0, 255, 0, 0);
+            drawNote(canvas, barreFret, STRING - (barreString - 1), fingers != null ? 1 : 0, 255, 0, 0);
         }
         // 绘制其他节点
         for (int index = 0; index < frets.length; index++) {
@@ -776,7 +764,7 @@ public class ChordView extends View {
             if (barreChord != null && barreFret == fret && frets.length - index <= barreString) {
                 continue;
             }
-            drawNote(canvas, frets[index], index + 1, fingers[index], mNoteAlpha, mNoteStrokeWidth, mNoteStrokeColor);
+            drawNote(canvas, frets[index], index + 1, fingers != null ? fingers[index] : 0, mNoteAlpha, mNoteStrokeWidth, mNoteStrokeColor);
         }
     }
 
@@ -799,12 +787,12 @@ public class ChordView extends View {
         float cy = (getStringHeight() + getHeadHeight()) + (rowHeight * f) - (rowHeight / 2);
         canvas.drawCircle(cx, cy, mNoteRadius, mPaint);
         // 绘制节点文字
-        if (mShowMode != SIMPLE_SHOW_MODE) {
-            mPaint.setTextSize(mNoteTextSize);
+        if (mShowMode != SIMPLE_SHOW_MODE && finger > 0) {
             mPaint.setColor(mNoteTextColor);
+            mPaint.setTextSize(mNoteTextSize);
             String fingerStr = String.valueOf(finger);
-            mPaint.getTextBounds(fingerStr, 0, fingerStr.length(), mTextBound);
-            canvas.drawText(fingerStr, cx - mTextBound.width() / 2, cy + mTextBound.height() / 2, mPaint);
+            canvas.drawText(fingerStr, cx - mPaint.measureText(fingerStr) / 2,
+                    cy - (mPaint.ascent() + mPaint.descent()) / 2, mPaint);
         }
         // 绘制节点边框
         if (strokeWidth > 0) {

@@ -9,7 +9,7 @@ Android custom View for rendering guitar chord.
 # Prepare
 Added to app/build.gradle:
 ```
-implementation 'com.github.airsaid:chordview:0.0.2'
+implementation 'com.github.airsaid:chordview:0.0.4'
 ```
 
 
