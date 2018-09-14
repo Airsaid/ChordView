@@ -21,6 +21,7 @@ import android.content.res.TypedArray;
 import android.graphics.*;
 import android.support.annotation.*;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import com.github.airsaid.library.R;
 
@@ -638,6 +639,7 @@ public class ChordView extends View {
             float fretTextWidth = mPaint.measureText(fret);
             float x = fretWidth - fretTextWidth - mFretTextOffsetX;
             float y = getStringHeight() + getHeadHeight() + (getGridRowHeight() * index);
+            Log.d("test", "fret: " + fret);
             canvas.drawText(fret, x, y, mPaint);
             // 简单模式下，如果和弦中的品超过三品，则就只展示第一个品数字
             if (mShowMode == SIMPLE_SHOW_MODE) {
@@ -812,7 +814,7 @@ public class ChordView extends View {
     private float getFretWidth() {
         if (mChord != null) {
             mPaint.setTextSize(mFretTextSize);
-            String largestFret = String.valueOf(mChord.getLargestFret());
+            String largestFret = String.valueOf(getLeastFret() + getRow() - 1);
             return mPaint.measureText(largestFret) + mFretTextOffsetX;
         }
         return 0f;
