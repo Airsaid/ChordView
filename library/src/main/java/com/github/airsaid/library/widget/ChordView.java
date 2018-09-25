@@ -21,7 +21,6 @@ import android.content.res.TypedArray;
 import android.graphics.*;
 import android.support.annotation.*;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import com.github.airsaid.library.R;
 
@@ -593,6 +592,7 @@ public class ChordView extends View {
         drawHead(canvas);
         drawGrid(canvas);
         drawNotes(canvas);
+//        drawDebug(canvas);
     }
 
     /**
@@ -639,7 +639,6 @@ public class ChordView extends View {
             float fretTextWidth = mPaint.measureText(fret);
             float x = fretWidth - fretTextWidth - mFretTextOffsetX;
             float y = getStringHeight() + getHeadHeight() + (getGridRowHeight() * index);
-            Log.d("test", "fret: " + fret);
             canvas.drawText(fret, x, y, mPaint);
             // 简单模式下，如果和弦中的品超过三品，则就只展示第一个品数字
             if (mShowMode == SIMPLE_SHOW_MODE) {
@@ -683,31 +682,21 @@ public class ChordView extends View {
         mPaint.setColor(mGridLineColor);
 
         int row = getRow();
-        float columnWidth = getGridColumnWidth();
-        float rowHeight = getGridRowHeight();
         float width = getGridWidth();
         float height = getGridHeight();
         float x = getFretWidth(), y = getStringHeight() + getHeadHeight();
         // 绘制横线
+        float ry = y;
+        float rh = (height - mGridLineWidth * (row + 1)) / (row);
         for (int i = 0; i < row + 1; i++) {
-            if (i != row) {
-                canvas.drawLine(x, y + (rowHeight * i) + (mGridLineWidth / 2)
-                        , x + width, y + (rowHeight * i) + (mGridLineWidth / 2), mPaint);
-            } else {
-                canvas.drawLine(x, y + (rowHeight * i) - (mGridLineWidth / 2)
-                        , x + width, y + (rowHeight * i) - (mGridLineWidth / 2), mPaint);
-            }
+            ry = i != 0 ? ry + rh + mGridLineWidth : ry + mGridLineWidth / 2;
+            canvas.drawLine(x, ry, x + width, ry, mPaint);
         }
         // 绘制竖线
+        float cw = (width - mGridLineWidth * STRING) / (STRING - 1);
         for (int i = 0; i < STRING; i++) {
-            if (i != STRING - 1) {
-                // 绘制竖线
-                canvas.drawLine(x + (columnWidth * i) + (mGridLineWidth / 2), y
-                        , x + (columnWidth * i) + (mGridLineWidth / 2), y + height, mPaint);
-            } else {
-                canvas.drawLine(x + (columnWidth * i) - (mGridLineWidth / 2), y
-                        , x + (columnWidth * i) - (mGridLineWidth / 2), y + height, mPaint);
-            }
+            x = i != 0 ? x + cw + mGridLineWidth : x + mGridLineWidth / 2;
+            canvas.drawLine(x, y, x, y + height, mPaint);
         }
     }
 
@@ -778,7 +767,8 @@ public class ChordView extends View {
         float columnWidth = getGridColumnWidth();
         float rowHeight = getGridRowHeight();
         float cx = ((getFretWidth() + mGridLineWidth / 2) + (columnWidth * (string - 1)))
-                - (string == STRING ? mGridLineWidth : 0);
+                - (string == STRING ? mGridLineWidth : mGridLineWidth / 2);
+
         int f = 1;
         int leastFret = getLeastFret();
         if (leastFret != f) {
@@ -972,6 +962,16 @@ public class ChordView extends View {
             }
         }
         return 5;
+    }
+
+    private void drawDebug(Canvas canvas) {
+        // draw grid rect
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(Color.RED);
+        mPaint.setStrokeWidth(2f);
+        float left = getFretWidth();
+        float top = getStringHeight() + getHeadHeight();
+        canvas.drawRect(left, top, left + getGridWidth(), top + getGridHeight(), mPaint);
     }
 
 }
