@@ -950,18 +950,16 @@ public class ChordView extends View {
      * @return 行。
      */
     private int getRow() {
-        // 简单模式下，如果和弦中最大品和最小品的跨度超过了三品，则行数按照最大跨度来，如果未超过则为三行
+        // 简单模式下，如果和弦中最大品和最小品的跨度未超过三品，则行数就为三行
         if (mShowMode == SIMPLE_SHOW_MODE) {
             int leastFret = getLeastFret();
             int largestFret = getLargestFret();
             int diffFret = largestFret - leastFret;
             if (diffFret < 3) {
                 return 3;
-            } else if (diffFret == 3) {
-                return 4;
             }
         }
-        return 5;
+        return 4;
     }
 
     private void drawDebug(Canvas canvas) {
