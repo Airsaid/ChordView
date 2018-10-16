@@ -772,7 +772,10 @@ public class ChordView extends View {
         int f = 1;
         int leastFret = getLeastFret();
         if (leastFret != f) {
-            f = fret % leastFret + 1;
+            if (fret != leastFret) {
+                int result = fret % leastFret;
+                f = result != 0 ? result + 1 : fret - leastFret + 1;
+            }
         } else {
             f = fret;
         }
