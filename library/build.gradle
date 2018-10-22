@@ -27,7 +27,7 @@ publish {
     userOrg = 'airsaid'
     groupId = 'com.github.airsaid'
     artifactId = 'chordview'
-    publishVersion = '0.0.7'
+    publishVersion = '0.0.8'
     desc = 'Android custom View for rendering guitar chord.'
     website = 'https://github.com/Airsaid/ChordView'
 }
