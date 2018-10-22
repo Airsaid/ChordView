@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mode.setOnCheckedChangeListener(this);
 
         mChords = new ArrayList<>();
+        mChords.add(new Chord(new int[]{-1, 3, 4, 2, 4, 2}, new int[]{0, 2, 3, 1, 4, 1}));
         mChords.add(new Chord(new int[]{7, 9, 9, 8, 7, 7}, new int[]{1, 3, 4, 2, 1, 1}));
         mChords.add(new Chord(new int[]{-1, 7, 5, 5, 5, 8}, new int[]{0, 3, 1, 1, 1, 4}));
         mChords.add(new Chord(new int[]{-1, -1, 1, 0, 1, 3}, new int[]{0, 0, 1, 0, 2, 4}));

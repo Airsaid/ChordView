@@ -41,6 +41,8 @@ public class ChordView extends View {
 
     /** 弦数 */
     private static final int STRING = 6;
+    /** 品数 */
+    private static final int FRET = 4;
     /** 默认显示模式 */
     public static final int NORMAL_SHOW_MODE = 1;
     /** 简单显示模式，默认只显示三品 */
@@ -614,11 +616,16 @@ public class ChordView extends View {
     }
 
     /**
-     * 绘制品。
+     * 绘制品文字。
      *
      * @param canvas 画布对象
      */
     private void drawFrets(Canvas canvas) {
+        // 如果最高品未超过 4 品，则不绘制
+        if (!isExceedDefaultFret()) {
+            return;
+        }
+
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setTextSize(mFretTextSize);
         mPaint.setColor(mFretTextColor);
@@ -627,12 +634,6 @@ public class ChordView extends View {
         int index = 1;
         int leastFret = getLeastFret();
         float fretWidth = getFretWidth();
-
-        // 简单模式下，如果和弦在三品内则不展示品数字
-        int largestFret = getLargestFret();
-        if (largestFret <= 3) {
-            return;
-        }
 
         for (int i = leastFret; i < STRING + leastFret; i++) {
             String fret = String.valueOf(i);
@@ -682,8 +683,7 @@ public class ChordView extends View {
         mPaint.setColor(mGridLineColor);
 
         int row = getRow();
-        float width = getGridWidth();
-        float height = getGridHeight();
+        float width = getGridWidth(), height = getGridHeight();
         float x = getFretWidth(), y = getStringHeight() + getHeadHeight();
         // 绘制横线
         float ry = y;
@@ -725,7 +725,14 @@ public class ChordView extends View {
             mPaint.setAlpha(mBarreAlpha);
 
             float left = getFretWidth() + mGridLineWidth / 2 + (getGridColumnWidth() * (STRING - barreString));
-            float top = getStringHeight() + getHeadHeight() + getGridRowHeight() / 2 - mNoteRadius;
+            float top = getStringHeight() + getHeadHeight();
+            if (isExceedDefaultFret()) {
+                // 显示在 1 品位置
+                top += getGridRowHeight() / 2 - mNoteRadius;
+            } else {
+                // 显示在最小品位置
+                top += getGridRowHeight() * barreFret - (getGridRowHeight() / 2) - mNoteRadius;
+            }
             float right = left + getGridColumnWidth() * (barreString - 1);
             float bottom = top + mNoteRadius * 2;
             canvas.drawRect(left, top, right, bottom, mPaint);
@@ -771,7 +778,7 @@ public class ChordView extends View {
 
         int f = 1;
         int leastFret = getLeastFret();
-        if (leastFret != f) {
+        if (isExceedDefaultFret()) {
             if (fret != leastFret) {
                 int result = fret % leastFret;
                 f = result != 0 ? result + 1 : fret - leastFret + 1;
@@ -953,16 +960,25 @@ public class ChordView extends View {
      * @return 行。
      */
     private int getRow() {
-        // 简单模式下，如果和弦中最大品和最小品的跨度未超过三品，则行数就为三行
+        // 简单模式下，如果和弦中最大品和最小品的跨度未超过三品，且 1 品为最低品，则行数就为三行
         if (mShowMode == SIMPLE_SHOW_MODE) {
             int leastFret = getLeastFret();
             int largestFret = getLargestFret();
             int diffFret = largestFret - leastFret;
-            if (diffFret < 3) {
+            if (diffFret < 3 && leastFret == 1) {
                 return 3;
             }
         }
         return 4;
+    }
+
+    /**
+     * 最大品是否超过了默认显示品。
+     *
+     * @return 超过了，返回 true，否则返回 false。
+     */
+    private boolean isExceedDefaultFret() {
+        return getLargestFret() > FRET;
     }
 
     private void drawDebug(Canvas canvas) {
