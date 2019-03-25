@@ -81,8 +81,17 @@ public class ChordHelper {
     public int getWithFirstString(Chord chord) {
         int string = 1;
         int[] frets = chord.getFrets();
+        int[] fingers = chord.getFingers();
         while (frets[frets.length - 1] == frets[frets.length - 1 - string]) {
-            string += 1;
+            if(fingers!=null){
+                if(fingers[fingers.length-1]== fingers[fingers.length-1-string]){
+                    string+=1;
+                }
+                return string;
+            }else{
+                string += 1;
+            }
+
         }
         return string;
     }
