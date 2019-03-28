@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioGroup;
+
 import com.github.airsaid.library.widget.Chord;
 import com.github.airsaid.library.widget.ChordView;
 
@@ -12,9 +13,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
-    private ChordView   mChordView;
+    private ChordView mChordView;
     private List<Chord> mChords;
-    private int         mIndex;
+    private int mIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mChords.add(new Chord(new int[]{-1, 3, 4, 2, 4, 2}, new int[]{0, 2, 3, 1, 4, 1}));
         mChords.add(new Chord(new int[]{-1, 3, 2, 0, 1, 0}));
         mChords.add(new Chord(new int[]{3, 3, 5, 5, 5, 3}));
+        mChords.add(new Chord(new int[]{3, -1, 0, 0, 3, 3},new int[]{2,0,0,0,3,4}));
         mChordView.setChord(mChords.get(mIndex));
     }
 
